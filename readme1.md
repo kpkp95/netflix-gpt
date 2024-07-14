@@ -2,6 +2,15 @@
 
 - create-react-app
 - config tailwind
+- Header
+- routing
+- LoginForm
+- Sign Up
+- Form Validation
+- UseRef
+- firebase setup
+  -deployment
+  -create signUp in firebase
 
 # features
 

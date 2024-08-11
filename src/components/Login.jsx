@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 import React, { useState, useRef } from "react";
 import Header from "./Header";
-import { checkValidData } from "../utils/validate";
+import { validateSignUpData, validateSignInData } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
@@ -22,12 +22,16 @@ const Login = () => {
 
   // Handle form submission
   const handleButtonClick = async () => {
-    const msg = checkValidData(
-      email.current.value,
-      password.current.value,
-      isSignInForm ? null : name.current?.value,
-      isSignInForm
-    );
+    let msg;
+    if (isSignInForm) {
+      msg = validateSignInData(email.current.value, password.current.value);
+    } else {
+      msg = validateSignUpData(
+        email.current.value,
+        password.current.value,
+        name.current.value
+      );
+    }
     setErrorMessage(msg);
 
     if (msg) return; // if msg is true then return

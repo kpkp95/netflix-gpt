@@ -25,7 +25,7 @@ const Login = () => {
     const msg = checkValidData(
       email.current.value,
       password.current.value,
-      name.current.value,
+      isSignInForm ? null : name.current?.value,
       isSignInForm
     );
     setErrorMessage(msg);
@@ -40,6 +40,7 @@ const Login = () => {
           password.current.value
         );
         const user = userCredential.user;
+        console.log("User signed up:", user);
         if (name.current) {
           await updateProfile(user, {
             displayName: name.current.value,
@@ -47,19 +48,21 @@ const Login = () => {
         }
         alert("Sign-Up successful!");
       } catch (error) {
-        setErrorMessage(error.code + +error.message);
+        setErrorMessage(error.code + "-" + error.message);
       }
     } else {
       //signin
       try {
-        await signInWithEmailAndPassword(
+        const userCredential = await signInWithEmailAndPassword(
           auth,
           email.current.value,
           password.current.value
         );
+        const user = userCredential.user;
+        console.log("User signed in:", user);
         alert("Sign-In successful!");
       } catch (error) {
-        setErrorMessage(error.code + +error.message);
+        setErrorMessage(error.code + error.message);
       }
     }
   };

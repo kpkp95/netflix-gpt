@@ -6,7 +6,7 @@ export const checkValidData = (
 ) => {
   const isEmailEmpty = !email.trim();
   const isPasswordEmpty = !password.trim();
-  const isNameEmpty = !name?.trim();
+  const isNameEmpty = !isSignIn && !name?.trim(); // Only check name if not signing in
 
   if (!isSignIn && isNameEmpty && isEmailEmpty && isPasswordEmpty)
     return "Name, Email, and Password are required";
@@ -20,11 +20,13 @@ export const checkValidData = (
   );
   const isPasswordValid =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password);
-  const isNameValid = /\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+/.test(name);
 
   let errorMessage = "";
 
-  if (!isSignIn && !isNameValid) errorMessage += "Please enter a valid Name. ";
+  if (!isSignIn) {
+    const isNameValid = /\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+/.test(name);
+    if (!isNameValid) errorMessage += "Please enter a valid Name. ";
+  }
   if (!isEmailValid) errorMessage += "Email is not valid. ";
   if (!isPasswordValid) errorMessage += "Password is not valid. ";
 

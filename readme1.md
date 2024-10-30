@@ -11,6 +11,8 @@
 - firebase setup
   -deployment
   -create signUp in firebase
+  -implement signin and sign up
+  -add redux tool kit created redux store with user slice
 
 # features
 

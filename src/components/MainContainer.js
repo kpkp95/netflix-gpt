@@ -4,9 +4,10 @@ import VideoBackground from "./VideoBackground";
 import VideoTitle from "./VideoTitle";
 
 const MainContainer = () => {
-  const movies = useSelector((store) => store.movies?.nowPlayingMovies);
+  const movies = useSelector((store) => store.movies?.allMovies);
+  console.log(movies.length);
   if (!movies || movies.length === 0) return; // Handle case where there are no movies
-  const randomIndex = Math.floor(Math.random() * Math.min(movies.length, 20));
+  const randomIndex = Math.floor(Math.random() * Math.min(movies.length, 100));
 
   const mainMovies = movies[randomIndex];
   const { title, overview, id } = mainMovies;

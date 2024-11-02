@@ -27,7 +27,6 @@ const VideoBackground = ({ movieId }) => {
           src={`https://www.youtube-nocookie.com/embed/${trailer?.key}?autoplay=1&mute=1`}
           title="Movie Trailer"
           aria-label="Movie Trailer"
-          allow="autoplay; clipboard-write; encrypted-media; gyroscope; "
         ></iframe>
       ) : (
         <p>No valid trailer found.</p>

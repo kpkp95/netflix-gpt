@@ -1,23 +1,22 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addNowPlayingMovies, addAllMovies } from "../utils/movieSlice"; // Redux action
+import { addAiringTodayShows } from "../utils/movieSlice"; // Redux action
 import { API_OPTIONS } from "../utils/constant"; // API options
 
-const useNowPlayingMovies = () => {
+const useAiringTodayShows = () => {
   const dispatch = useDispatch(); // Get the dispatch function
 
   // Function to fetch movies data
 
-  const getNowPlayingMovies = async () => {
+  const getAiringTodayShows = async () => {
     try {
       const data = await fetch(
-        "https://api.themoviedb.org/3/movie/now_playing?page=1",
+        "https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1",
         API_OPTIONS
       ); // Fetch data from the API
       const json = await data.json(); // Convert response to JSON
       console.log(json.results);
-      dispatch(addNowPlayingMovies(json.results)); // Dispatch the movie data to Redux
-      dispatch(addAllMovies(json.results));
+      dispatch(addAiringTodayShows(json.results)); // Dispatch the movie data to Redux
     } catch (error) {
       console.error("Error fetching movies:", error); // Log any errors
     }
@@ -25,8 +24,8 @@ const useNowPlayingMovies = () => {
 
   // Use useEffect to call the fetchMovies when the hook is used
   useEffect(() => {
-    getNowPlayingMovies(); // Call the fetch function when the component mounts
+    getAiringTodayShows(); // Call the fetch function when the component mounts
   }, []); // Depend on the URL so the hook will refetch if the URL changes
 };
 
-export default useNowPlayingMovies;
+export default useAiringTodayShows;

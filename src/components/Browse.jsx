@@ -1,25 +1,26 @@
 import Header from "./Header";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import MainContainer from "./MainContainer";
-import MoviesList from "./MoviesList";
-
-/*
- -Main conatianer
-   -Video Background
-   -Video Title
-  -Seconndary Container
-    -Movielist  * n
-     -card * n
-
- */
+import SecondaryContainer from "./SecondaryContainer";
+import useTopRatedMovies from "../hooks/useTopRatedMovies";
+import useTopRatedTVSeries from "../hooks/useTopRatedTVSeries";
+import useAiringTodayShows from "../hooks/useAiringTodayShows";
+import useCrimeShows from "../hooks/useCrimeShows";
+import useHorrorMovies from "../hooks/useHorrorMovies";
 
 const Browse = () => {
   useNowPlayingMovies();
+  useTopRatedMovies();
+  useTopRatedTVSeries();
+  useAiringTodayShows();
+  useCrimeShows();
+  useHorrorMovies();
+
   return (
     <div>
       <Header />
       <MainContainer />
-      <MoviesList />
+      <SecondaryContainer />
     </div>
   );
 };

@@ -14,3 +14,13 @@ export const API_OPTIONS = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjMyMzZiZjc4Njk2MDhiNjVmNWQ5Y2E0Y2FjOTRlMiIsIm5iZiI6MTcyNjQyNDcwOC44ODY0OTcsInN1YiI6IjY2ZTcyNTA2MDUwZjE0ZTRmY2NmYTFiYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fXPta_KQvXW3mhlrydaaKcM97VBEAqpe_eE7grygAeI",
   },
 };
+
+export const BACKGROUND_IMG_URL =
+  "https://assets.nflxext.com/ffe/siteui/vlv3/a56dc29b-a0ec-4f6f-85fb-50df0680f80f/ed3169bc-bae8-4c49-80ed-bab82d071166/CA-en-20240617-popsignuptwoweeks-perspective_alpha_website_large.jpg";
+
+export const SUPPORTED_LANGUAGES = [
+  { identifier: "en", name: "English" },
+  { identifier: "hindi", name: "Hindi" },
+  { identifier: "spanish", name: "Spanish" },
+  { identifier: "french", name: "French" },
+];

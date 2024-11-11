@@ -11,6 +11,7 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { BACKGROUND_IMG_URL } from "../utils/constant";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -127,7 +128,7 @@ const Login = () => {
       <Header />
       <div className="absolute inset-0">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/a56dc29b-a0ec-4f6f-85fb-50df0680f80f/ed3169bc-bae8-4c49-80ed-bab82d071166/CA-en-20240617-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          src={BACKGROUND_IMG_URL}
           alt="bg"
           className="w-full h-full object-cover"
         />

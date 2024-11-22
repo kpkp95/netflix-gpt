@@ -1,11 +1,13 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addNowPlayingMovies, addAllMovies } from "../utils/movieSlice"; // Redux action
 import { API_OPTIONS } from "../utils/constant"; // API options
 
 const useNowPlayingMovies = () => {
   const dispatch = useDispatch(); // Get the dispatch function
-
+  const nowPlayingMovies = useSelector(
+    (store) => store.movies.nowPlayingMovies
+  );
   // Function to fetch movies data
 
   const getNowPlayingMovies = async () => {
@@ -22,11 +24,13 @@ const useNowPlayingMovies = () => {
       console.error("Error fetching movies:", error); // Log any errors
     }
   };
-
-  // Use useEffect to call the fetchMovies when the hook is used
   useEffect(() => {
-    getNowPlayingMovies(); // Call the fetch function when the component mounts
-  }, []); // Depend on the URL so the hook will refetch if the URL changes
+    if (!nowPlayingMovies || nowPlayingMovies.length === 0) {
+      getNowPlayingMovies(); // Call the fetch function when the component mounts if no data exists
+    }
+  }, [nowPlayingMovies]);
+  // Use useEffect to call the fetchMovies when the hook is used
+  // Depend on the URL so the hook will refetch if the URL changes
 };
 
 export default useNowPlayingMovies;

@@ -1,11 +1,13 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTopRatedTVSeries } from "../utils/movieSlice"; // Redux action
 import { API_OPTIONS } from "../utils/constant"; // API options
 
 const useTopRatedTVSeries = () => {
   const dispatch = useDispatch(); // Get the dispatch function
-
+  const topRatedTVSeries = useSelector(
+    (store) => store.movies.topRatedTVSeries
+  );
   // Function to fetch movies data
 
   const getTopRatedTVSeries = async () => {
@@ -21,11 +23,11 @@ const useTopRatedTVSeries = () => {
       console.error("Error fetching movies:", error); // Log any errors
     }
   };
-
-  // Use useEffect to call the fetchMovies when the hook is used
   useEffect(() => {
-    getTopRatedTVSeries(); // Call the fetch function when the component mounts
-  }, []); // Depend on the URL so the hook will refetch if the URL changes
+    if (!topRatedTVSeries || topRatedTVSeries.length === 0) {
+      getTopRatedTVSeries(); // Call the fetch function when the component mounts if no data exists
+    }
+  }, [topRatedTVSeries]);
 };
 
 export default useTopRatedTVSeries;

@@ -1,11 +1,14 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addAiringTodayShows } from "../utils/movieSlice"; // Redux action
 import { API_OPTIONS } from "../utils/constant"; // API options
 
 const useAiringTodayShows = () => {
   const dispatch = useDispatch(); // Get the dispatch function
 
+  const airingTodayShows = useSelector(
+    (store) => store.movies.addAiringTodayShows
+  );
   // Function to fetch movies data
 
   const getAiringTodayShows = async () => {
@@ -22,10 +25,12 @@ const useAiringTodayShows = () => {
     }
   };
 
-  // Use useEffect to call the fetchMovies when the hook is used
   useEffect(() => {
-    getAiringTodayShows(); // Call the fetch function when the component mounts
-  }, []); // Depend on the URL so the hook will refetch if the URL changes
+    if (!airingTodayShows || airingTodayShows.length === 0) {
+      getAiringTodayShows(); // Call the fetch function when the component mounts if no data exists
+    }
+  }, [airingTodayShows]); // Depend on the URL so the hook will refetch if the URL changes
 };
+// Use useEffect to call the fetchMovies when the hook is used
 
 export default useAiringTodayShows;

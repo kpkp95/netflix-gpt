@@ -11,6 +11,8 @@ const movieSlice = createSlice({
     airingTodayShows: [],
     horrorMovies: [],
     trailerVideo: null,
+    loading: false,
+    error: null,
   },
   reducers: {
     addNowPlayingMovies: (state, action) => {
@@ -43,12 +45,16 @@ const movieSlice = createSlice({
     addAiringTodayShows: (state, action) => {
       state.airingTodayShows = action.payload;
     },
+    fetchTrailerStart(state) {
+      state.loading = true;
+      state.error = null;
+    },
   },
 });
 
 export const {
   addNowPlayingMovies,
-
+  fetchTrailerStart,
   addTrailerVideo,
   addTopRatedMovies,
   addTopRatedTVSeries,

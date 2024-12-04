@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCrimeShows } from "../utils/movieSlice"; // Redux action
 import { API_OPTIONS } from "../utils/constant"; // API options
 
 const useCrimeShows = () => {
   const dispatch = useDispatch(); // Get the dispatch function
-
+  const crimeShows = useSelector((store) => store.movies?.crimeShows);
   // Function to fetch movies data
 
   const getCrimeShows = async () => {
@@ -15,7 +15,7 @@ const useCrimeShows = () => {
         API_OPTIONS
       ); // Fetch data from the API
       const json = await data.json(); // Convert response to JSON
-      console.log(json.results);
+
       dispatch(addCrimeShows(json.results)); // Dispatch the movie data to Redux
     } catch (error) {
       console.error("Error fetching movies:", error); // Log any errors
@@ -24,7 +24,9 @@ const useCrimeShows = () => {
 
   // Use useEffect to call the fetchMovies when the hook is used
   useEffect(() => {
-    getCrimeShows(); // Call the fetch function when the component mounts
+    if (!crimeShows || crimeShows.length === 0) {
+      getCrimeShows(); // Call the fetch function when the component mounts if no data exists
+    }
   }, []); // Depend on the URL so the hook will refetch if the URL changes
 };
 

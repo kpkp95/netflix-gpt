@@ -9,6 +9,7 @@ import useCrimeShows from "../hooks/useCrimeShows";
 import useHorrorMovies from "../hooks/useHorrorMovies";
 import GptSearch from "./GptSearch";
 import { useSelector } from "react-redux";
+import useTrailer from "../hooks/useTrailer";
 
 const Browse = () => {
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);

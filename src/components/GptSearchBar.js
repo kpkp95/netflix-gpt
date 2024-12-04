@@ -1,13 +1,14 @@
 import React, { useRef } from "react";
 import lang from "../utils/languageConstant";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import openai from "../utils/openAI";
 import { API_OPTIONS } from "../utils/constant"; // API options
+import { addGptMovieResult } from "../utils/gptSlice";
 
 const GptSearchBar = () => {
   const searchText = useRef(null);
   const languageKey = useSelector((store) => store.config.lang);
-
+  const dispatch = useDispatch();
   //seach the movie in tmdb
   const searchMovieTMDB = async (movieName) => {
     try {
@@ -54,9 +55,15 @@ const GptSearchBar = () => {
       const gptMoviesList = gptResponse.split(",").map((movie) => movie.trim());
       console.log("GPT Suggested Movies:", gptMoviesList);
 
-      const promiseArray = gptMoviesList.map((movie) => searchMovieTMDB(movie));
-
-      const tmdbResults = await Promise.all(promiseArray);
+      const tmdbResults = await Promise.all(
+        gptMoviesList.map((movie) => searchMovieTMDB(movie))
+      );
+      dispatch(
+        addGptMovieResult({
+          gptMovieNames: gptMoviesList,
+          tmdbMovieNames: tmdbResults,
+        })
+      );
     } catch (error) {
       console.error("Error fetching GPT response:", error);
       alert("An error occurred. Please try again.");
@@ -64,19 +71,19 @@ const GptSearchBar = () => {
   };
 
   return (
-    <div className="pt-[10%] flex justify-center">
+    <div className="pt-[45%]  sm:pt-[25%] md:pt-[21%]  xs:pt-[40%] flex justify-center  lg:pt-[20%] xl:pt-[11%] ">
       <form
-        className="w-1/2 bg-black grid grid-cols-12 rounded-xl"
+        className="w-full sm:w-[65%] md:w-[60%] lg:w-[55%] xl:w-[50%] bg-black grid grid-cols-12 rounded-xl max-[399px]:h-[80px] max-[399px]:p-2  max-[399px]:m-2 xs:m-2 sm:m-0 sm:p-0 "
         onSubmit={(e) => e.preventDefault()}
       >
         <input
           ref={searchText}
           type="text"
-          className="p-4 m-4 col-span-9 rounded-lg"
+          className="p-4 m-4  col-span-9 rounded-lg  xs:placeholder:text-sm max-[399px]:placeholder:text-xs md:placeholder:text-base  max-[399px]:m-2 max-[399px]:p-2"
           placeholder={lang[languageKey].gptSearchPlaceHolder}
         />
         <button
-          className="m-4 py-2 px-4 col-span-3 bg-red-600  text-white rounded-lg"
+          className="m-4   max-[399px]:py-0 col-span-3 bg-red-600  text-white rounded-lg  sm:text-sm text-xs md:text-base max-[399px]:m-2"
           onClick={handleGptSearchClick}
         >
           {lang[languageKey].search}

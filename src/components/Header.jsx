@@ -73,14 +73,18 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="absolute px-8 py-2 bg-gradient-to-b w-full from-black z-10 flex justify-between items-center">
+    <div className="absolute px-8 xl:px-8 py-2 bg-gradient-to-b w-full from-black z-10 flex flex-col items-center md:flex-row md:justify-between ">
       {/* Netflix Logo */}
-      <img className="w-44" src={LOGO} alt="Netflix logo" />
+      <img
+        className="w-32 xs:w-36  md:w-44 mx-auto md:mx-0"
+        src={LOGO}
+        alt="Netflix logo"
+      />
 
       {/* Profile Section */}
       {user && (
-        <div className="relative" ref={dropdownRef}>
-          <div className="flex items-center space-x-2">
+        <div className="relative md:mt-0 " ref={dropdownRef}>
+          <div className="flex items-center justify-center space-x-2">
             {showGptSearch && (
               <select
                 className="p-2 bg-gray-800 text-white rounded-lg"
@@ -98,7 +102,7 @@ const Header = () => {
               </select>
             )}
             <button
-              className="py-2 px-2 m-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              className="py-1 px-1 m-1 xs:py-2 xs:px-2  xs:m-2 bg-red-600 text-white  rounded-lg hover:bg-red-700 transition-colors"
               onClick={handleGptSearchClick}
             >
               {showGptSearch ? "Home Page" : "GPT Search"}

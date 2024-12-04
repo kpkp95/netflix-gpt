@@ -2,19 +2,21 @@ import React from "react";
 
 const VideoTitle = ({ title, overview }) => {
   return (
-    <div className="w-screen aspect-video pt-[18%] px-6 md:px-12 absolute text-white bg-gradient-to-r from-black">
-      <h1 className="text-3xl md:text-5xl font-bold">{title}</h1>
-      <p className="py-4 text-base md:text-lg w-full md:w-1/3">{overview}</p>
-      <div className="flex space-x-4 mt-4">
+    <div className="w-screen aspect-video pt-[18%] px-8 md:px-12 absolute text-white bg-gradient-to-r from-black">
+      <h1 className="text-2xl md:text-5xl font-bold">{title}</h1>
+      <p className="hidden xl:inline-block py-4 text-base md:text-lg w-full md:w-1/3">
+        {overview}
+      </p>
+      <div className="flex space-x-4 mt-2 sm:mt-4">
         <button
-          className="flex items-center bg-white hover:bg-gray-400 text-black p-4 px-8 bg-opacity-90 rounded-lg text-lg"
+          className="flex items-center bg-white hover:bg-gray-400 text-black py-1 px-3 md:py-3 md:px-6 xl:py-4  xl:px-8 bg-opacity-90 rounded-lg text-sm md:text-base "
           aria-label="Play the video"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="h-6 w-6 mr-2" // Adjust size and margin
+            className="h-4 w-4 md:h-6 md:w-6 mr-2" // Adjust size and margin
           >
             <path
               fillRule="evenodd"
@@ -25,14 +27,14 @@ const VideoTitle = ({ title, overview }) => {
           Play
         </button>
         <button
-          className="flex items-center  bg-white hover:bg-gray-400 text-black p-4 px-8 bg-opacity-90 rounded-lg text-lg"
+          className="md:flex items-center hidden  bg-white hover:bg-gray-400 text-black py-2 px-3  md:py-3   md:px-4 xl:py-4 md:text-base  xl:px-8 bg-opacity-90 rounded-lg text-lg"
           aria-label="More information about the video"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
             fill="currentColor"
-            className="h-5 w-5 mr-2" // Adjust size and margin
+            className="h-4 w-4 md:h-6 md:w-6 mr-2" // Adjust size and margin
           >
             <path
               fillRule="evenodd"

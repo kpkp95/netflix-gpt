@@ -137,9 +137,9 @@ const Login = () => {
 
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="p-12 max-w-md mx-auto absolute bg-black bg-opacity-80 my-36 right-0 left-0 rounded-lg shadow-lg text-white"
+        className=" p-6 xs:p-12 sm:p-12 w-[90%] sm:max-w-sm xl:max-w-md mx-auto absolute bg-black bg-opacity-80 my-36 right-0 left-0 rounded-lg shadow-lg text-white"
       >
-        <h1 className="font-bold text-3xl py-4">
+        <h1 className="font-bold text-2xl sm:text-2xl  sm:py-4">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignInForm && (
@@ -147,7 +147,7 @@ const Login = () => {
             ref={nameRef}
             type="text"
             placeholder="Full Name"
-            className="p-4 my-4 w-full bg-gray-700 rounded-lg"
+            className="p-2 xs:p-3  sm:p-4 sm:my-4  mt-4  w-full bg-gray-700 rounded-lg"
             aria-label="Full Name"
           />
         )}
@@ -155,14 +155,14 @@ const Login = () => {
           ref={emailRef}
           type="email"
           placeholder="Email"
-          className="p-4 my-4 w-full bg-gray-700 rounded-lg"
+          className="p-2 xs:p-3 sm:p-4 my-4 w-full bg-gray-700 rounded-lg"
           aria-label="Email"
         />
         <input
           ref={passwordRef}
           type="password"
           placeholder="Password"
-          className="p-4 my-4 w-full bg-gray-700 rounded-lg"
+          className="p-2 xs:p-3 sm:p-4 sm:my-4 w-full bg-gray-700 rounded-lg"
           aria-label="Password"
         />
         {errorMessage && (
@@ -174,7 +174,7 @@ const Login = () => {
           </p>
         )}
         <button
-          className={`p-4 my-4 w-full bg-red-600 rounded-lg ${
+          className={` py-2 xs:py-3 sm:p-4 my-4 w-full bg-red-600 rounded-lg ${
             loading ? "opacity-50 cursor-not-allowed" : ""
           }`}
           onClick={handleButtonClick}

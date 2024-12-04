@@ -19,11 +19,12 @@ const MoviesList = ({ movies, title }) => {
 
   return (
     <div className="px-2">
-      <h1 className="text-2xl  px-12 text-white">{title}</h1>
+      <h1 className="md:text-2xl text-lg px-8  md:px-11 text-white">{title}</h1>
 
       <div className="flex items-center">
         <button onClick={scrollLeft} className="text-white">
-          <MdChevronLeft size={40} color="white" /> {/* Change color here */}
+          <MdChevronLeft className="text-3xl md:text-4xl " color="white" />{" "}
+          {/* Change color here */}
         </button>
 
         <div
@@ -39,7 +40,8 @@ const MoviesList = ({ movies, title }) => {
         </div>
 
         <button onClick={scrollRight} className="text-white">
-          <MdChevronRight size={40} color="white" /> {/* Change color here */}
+          <MdChevronRight className="text-3xl md:text-4xl " color="white" />{" "}
+          {/* Change color here */}
         </button>
       </div>
     </div>

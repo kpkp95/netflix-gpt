@@ -5,18 +5,19 @@ import { BACKGROUND_IMG_URL } from "../utils/constant";
 
 const GptSearch = () => {
   return (
-    <div>
-      <div className="absolute -z-20">
+    <>
+      <div className="fixed inset-0 -z-20">
         <img
           src={BACKGROUND_IMG_URL}
           alt="bg"
-          className="w-full h-full object-cover"
+          className="h-screen w-screen object-cover "
         />
-        <div className="absolute inset-0 bg-black opacity-60"></div>
       </div>
-      <GptSearchBar />
-      <GptMoviesSuggestions />
-    </div>
+      <div>
+        <GptSearchBar />
+        <GptMoviesSuggestions />
+      </div>
+    </>
   );
 };
 

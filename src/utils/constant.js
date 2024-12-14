@@ -23,3 +23,15 @@ export const SUPPORTED_LANGUAGES = [
   { identifier: "spanish", name: "Spanish" },
   { identifier: "french", name: "French" },
 ];
+
+export const categoryMapping = {
+  nowPlayingMovies: { title: "Now Playing", type: "movie" },
+  topRatedMovies: { title: "Top Rated Movies", type: "movie" },
+  horrorMovies: { title: "Horror Movies", type: "movie" },
+  topRatedTVSeries: { title: "Top Rated TV", type: "tv" },
+  airingTodayShows: { title: "Airing Today", type: "tv" },
+  crimeShows: { title: "Crime Shows", type: "tv" },
+};
+
+export const noImageUrl =
+  "https://en.m.wikipedia.org/wiki/File:No_image_available.svg#/media/File%3ANo_image_available.svg";

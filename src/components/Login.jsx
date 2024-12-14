@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/heading-has-content */
 import React, { useState, useRef } from "react";
 
 import Header from "./Header";

@@ -1,36 +1,46 @@
+import React from "react";
 import Header from "./Header";
-import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
-import MainContainer from "./MainContainer";
-import SecondaryContainer from "./SecondaryContainer";
-import useTopRatedMovies from "../hooks/useTopRatedMovies";
-import useTopRatedTVSeries from "../hooks/useTopRatedTVSeries";
-import useAiringTodayShows from "../hooks/useAiringTodayShows";
-import useCrimeShows from "../hooks/useCrimeShows";
-import useHorrorMovies from "../hooks/useHorrorMovies";
-import GptSearch from "./GptSearch";
+
 import { useSelector } from "react-redux";
-import useTrailer from "../hooks/useTrailer";
+import useFetchBrowseData from "../hooks/useFetchBrowseData";
+import Loader from "./Loader"; // Import the custom loader
+
+import ErrorBoundary from "./ErrorBoundary"; // Import the error boundary
+
+// Lazy load components
+const MainContainer = React.lazy(() => import("./MainContainer"));
+const SecondaryContainer = React.lazy(() => import("./SecondaryContainer"));
+const GptSearch = React.lazy(() => import("./GptSearch"));
 
 const Browse = () => {
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
-  useNowPlayingMovies();
-  useTopRatedMovies();
-  useTopRatedTVSeries();
-  useAiringTodayShows();
-  useCrimeShows();
-  useHorrorMovies();
+  const { loading, error, loadMore } = useFetchBrowseData();
+  if (loading) {
+    return <Loader />;
+  }
+  if (error) {
+    return (
+      <div className="text-center text-red-500">
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
-    <div>
+    <div className="min-h-screen  text-white">
       <Header />
+      {error && <div className="text-red-500 text-center">{error}</div>}
       {showGptSearch ? (
         <GptSearch />
       ) : (
-        <>
-          <MainContainer />
-          <SecondaryContainer />
-        </>
-      )}
+        <React.Suspense fallback={<Loader />}>
+          <ErrorBoundary>
+            <MainContainer />
+            <SecondaryContainer />
+          </ErrorBoundary>
+        </React.Suspense>
+      )}{" "}
+      {loading && <Loader />}
     </div>
   );
 };

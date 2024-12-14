@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { BiExpandHorizontal } from "react-icons/bi";
 
 const configSlice = createSlice({
   name: "config",

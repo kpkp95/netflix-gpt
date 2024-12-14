@@ -1,23 +1,11 @@
 import React from "react";
-import Login from "./Login";
-import Browse from "./Browse";
-import { createBrowserRouter } from "react-router-dom";
-import { RouterProvider } from "react-router-dom";
+import routes from "./route";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const Body = () => {
-  const appRouter = createBrowserRouter([
-    {
-      path: "/",
-      element: <Login />,
-    },
-    {
-      path: "/browse",
-      element: <Browse />,
-    },
-  ]);
-
+  const appRouter = createBrowserRouter(routes);
   return (
-    <div>
+    <div className="h-full w-full">
       <RouterProvider router={appRouter} />
     </div>
   );

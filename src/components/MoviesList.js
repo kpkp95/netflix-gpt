@@ -2,7 +2,14 @@ import React, { useRef, useState } from "react";
 import MovieCard from "./MovieCard";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-const MoviesList = ({ movies, title, onMovieClick, onOpenInfiniteScroll }) => {
+const MoviesList = ({
+  movies,
+  title,
+  onMovieClick,
+  onOpenInfiniteScroll,
+  onClearResults,
+  showClearButton,
+}) => {
   const sliderRef = useRef(null);
   const [isAtEnd, setIsAtEnd] = useState(false);
 
@@ -33,8 +40,19 @@ const MoviesList = ({ movies, title, onMovieClick, onOpenInfiniteScroll }) => {
 
   return (
     <div className="px-2">
-      <h1 className="md:text-2xl text-lg px-8 md:px-11 text-white">{title}</h1>
-
+      <div className="flex justify-between items-center px-8 md:px-0">
+        <h1 className="md:text-2xl inline-block text-lg px-8 md:px-11 text-white">
+          {title}
+        </h1>
+        {showClearButton && (
+          <button
+            onClick={onClearResults}
+            className="bg-gray-700 text-white  mx-8 px-3 py-1 rounded-full hover:bg-gray-600 transition z-10"
+          >
+            Clear Results
+          </button>
+        )}
+      </div>
       <div className="flex items-center">
         <button onClick={scrollLeft} className="text-white">
           <MdChevronLeft className="text-3xl md:text-4xl" />

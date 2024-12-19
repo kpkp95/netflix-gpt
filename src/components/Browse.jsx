@@ -1,10 +1,9 @@
 import React from "react";
 import Header from "./Header";
-
+import Shimmer from "./Shimmer";
 import { useSelector } from "react-redux";
 import useFetchBrowseData from "../hooks/useFetchBrowseData";
 import Loader from "./Loader"; // Import the custom loader
-
 import ErrorBoundary from "./ErrorBoundary"; // Import the error boundary
 
 // Lazy load components
@@ -14,14 +13,12 @@ const GptSearch = React.lazy(() => import("./GptSearch"));
 
 const Browse = () => {
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
-  const { loading, error, loadMore } = useFetchBrowseData();
+  const { loading, error } = useFetchBrowseData();
+
   if (loading) {
-    return <Loader />;
-  }
-  if (error) {
     return (
-      <div className="text-center text-red-500">
-        <p>{error}</p>
+      <div className="min-h-screen flex justify-center items-center bg-black text-white">
+        <Shimmer />
       </div>
     );
   }
@@ -33,14 +30,14 @@ const Browse = () => {
       {showGptSearch ? (
         <GptSearch />
       ) : (
-        <React.Suspense fallback={<Loader />}>
+        <React.Suspense fallback={<Shimmer />}>
           <ErrorBoundary>
             <MainContainer />
+
             <SecondaryContainer />
           </ErrorBoundary>
         </React.Suspense>
-      )}{" "}
-      {loading && <Loader />}
+      )}
     </div>
   );
 };

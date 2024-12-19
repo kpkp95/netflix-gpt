@@ -19,6 +19,12 @@ const Header = () => {
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
 
+  const handleLogoClick = () => {
+    if (showGptSearch) {
+      dispatch(toggleGptSearchView());
+    }
+    navigate("/browse");
+  };
   const handleGptSearchClick = () => {
     dispatch(toggleGptSearchView());
   };
@@ -31,12 +37,17 @@ const Header = () => {
     dispatch(changeLanguage(e.target.value));
   };
 
+  const handleSignOutClick = () => {
+    setIsDropdownOpen(false);
+    handleSignOut();
+  };
+
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {})
+      .then(() => console.log("Successfully signed out"))
       .catch((error) => {
         alert("Failed to sign out. Please try again.");
-        console.error("Sign out error:", error);
+        console.error(`Sign-out error [${error.code}]:`, error.message);
       });
   };
 
@@ -47,7 +58,9 @@ const Header = () => {
         // https://firebase.google.com/docs/reference/js/auth.user
         const { uid, email, displayName } = user;
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
-        navigate("/browse");
+        if (window.location.pathname !== "/browse") {
+          navigate("/browse");
+        }
 
         // ...
       } else {
@@ -79,6 +92,7 @@ const Header = () => {
         className="w-32 xs:w-36  md:w-44 mx-auto md:mx-0"
         src={LOGO}
         alt="Netflix logo"
+        onClick={handleLogoClick}
       />
 
       {/* Profile Section */}
@@ -131,7 +145,10 @@ const Header = () => {
 
           {/* Dropdown Menu */}
           {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg transition-all duration-300 transform origin-top opacity-100">
+            <div
+              className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg transition-all duration-300 transform origin-top opacity-100"
+              aria-label="User Menu"
+            >
               <ul className="py-1 text-gray-700" role="menu">
                 <li>
                   <button
@@ -144,7 +161,7 @@ const Header = () => {
                 <li>
                   <button
                     className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-200 transition-colors"
-                    onClick={handleSignOut}
+                    onClick={handleSignOutClick}
                     role="menuitem"
                   >
                     Sign Out

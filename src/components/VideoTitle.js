@@ -5,6 +5,7 @@ import { fetchFromAPI } from "../utils/api";
 const VideoTitle = ({ title, overview, movieId, onMoreInfo }) => {
   const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
   const [trailerKey, setTrailerKey] = useState(null);
+  const fallbackOverview = overview || "No description available.";
 
   const handlePlayTrailer = async () => {
     try {
@@ -41,12 +42,12 @@ const VideoTitle = ({ title, overview, movieId, onMoreInfo }) => {
         {title || "Untitled Movie"}
       </h1>
       <p className="hidden xl:inline-block py-4 text-base md:text-lg w-full md:w-1/3">
-        {truncateText(overview, 120)}
+        {truncateText(fallbackOverview, 120)}
       </p>
       <div className="flex space-x-4 mt-2 sm:mt-4">
         <button
           onClick={handlePlayTrailer}
-          className="flex items-center bg-white hover:bg-gray-400 text-black py-1 px-3 md:py-3 md:px-6 xl:py-4 xl:px-8 bg-opacity-90 rounded-lg text-sm md:text-base"
+          className="flex items-center bg-white hover:bg-gray-400  hover:scale-105 transition-transform text-black py-1 px-3 md:py-3 md:px-6 xl:py-4 xl:px-8 bg-opacity-90 rounded-lg text-sm md:text-base"
           aria-label="Play the video"
         >
           <svg
@@ -65,7 +66,7 @@ const VideoTitle = ({ title, overview, movieId, onMoreInfo }) => {
         </button>
         <button
           onClick={onMoreInfo}
-          className="md:flex items-center hidden bg-white hover:bg-gray-400 text-black py-2 px-3 md:py-3 md:px-4 xl:py-4 md:text-base xl:px-8 bg-opacity-90 rounded-lg text-lg"
+          className="md:flex items-center hidden bg-white hover:bg-gray-400 text-black py-2 px-3 md:py-3 md:px-4 xl:py-4 md:text-base xl:px-8 bg-opacity-90  hover:scale-105 transition-transform rounded-lg text-lg"
           aria-label="More information about the video"
         >
           <svg

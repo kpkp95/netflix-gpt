@@ -49,7 +49,6 @@ const useFetchBrowseData = () => {
       dispatch(addAiringTodayShows(airingTodayShows.results));
     } catch (err) {
       console.error("Failed to fetch movie data:", err);
-      setError("Failed to fetch movie data. Please try again later.");
     } finally {
       setLoading(false);
     }

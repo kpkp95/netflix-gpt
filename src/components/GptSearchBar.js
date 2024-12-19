@@ -9,6 +9,21 @@ const GptSearchBar = () => {
   const searchText = useRef(null);
   const languageKey = useSelector((store) => store.config.lang);
   const dispatch = useDispatch();
+
+  // Helper: Check if query is specific to a movie
+  const isDirectMovieQuery = (query) => {
+    const genericTerms = [
+      "movie",
+      "movies",
+      "film",
+      "films",
+      "genre",
+      "comedy",
+      "romantic",
+    ];
+    return !genericTerms.some((term) => query.toLowerCase().includes(term));
+  };
+
   //seach the movie in tmdb
   const searchMovieTMDB = async (movieName) => {
     try {
@@ -21,6 +36,7 @@ const GptSearchBar = () => {
       const json = await data.json(); // Convert response to JSON
       console.log("searchMovieTMDB:", movieName, json.results);
       return json.results || [];
+      // Set results flag to true
       // Dispatch the movie data to Redux
     } catch (error) {
       console.error(`Error searching for movie "${movieName}":`, error); // Log any errors
@@ -34,6 +50,25 @@ const GptSearchBar = () => {
     if (!query) {
       alert("Please enter a search query.");
       return;
+    }
+    // Attempt a direct search in TMDB
+    if (isDirectMovieQuery(query)) {
+      try {
+        const directSearchResults = await searchMovieTMDB(query);
+        if (directSearchResults.length > 0) {
+          console.log("Direct Search Results:", directSearchResults);
+          dispatch(
+            addGptMovieResult({
+              gptMovieNames: [query], // Treat as a single GPT suggestion
+              tmdbMovieNames: [directSearchResults], // Wrap in an array for consistency
+            })
+          );
+
+          return; // Exit here for direct search
+        }
+      } catch (error) {
+        console.error("Direct search failed:", error);
+      }
     }
 
     const gptQuery = `Act as a Movie Recommendation system and suggest some movies for the query: "${query}". Only give me names of 5 movies, comma-separated, like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya.`;

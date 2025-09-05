@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import lang from "../utils/languageConstant";
 import { useDispatch, useSelector } from "react-redux";
-import openai from "../utils/openAI";
+import { askOpenAI } from "../utils/askOpenAI";
 import { API_OPTIONS } from "../utils/constant"; // API options
 import { addGptMovieResult } from "../utils/gptSlice";
 
@@ -74,25 +74,25 @@ const GptSearchBar = () => {
     const gptQuery = `Act as a Movie Recommendation system and suggest some movies for the query: "${query}". Only give me names of 5 movies, comma-separated, like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya.`;
 
     try {
-      const gptResult = await openai.chat.completions.create({
-        messages: [{ role: "user", content: gptQuery }],
-        model: "gpt-3.5-turbo",
-      });
-
-      const gptResponse = gptResult.choices[0]?.message?.content;
-      console.log("GPT Response:", gptResponse.choices);
+      const gptResponse = await askOpenAI(gptQuery);
+      console.log("GPT Response:", gptResponse);
 
       if (!gptResponse) {
         alert("GPT returned no results. Please try again.");
         return;
       }
+
       // Parse movie names from GPT response
-      const gptMoviesList = gptResponse.split(",").map((movie) => movie.trim());
+      const gptMoviesList = gptResponse
+        .split(",")
+        .map((m) => m.trim())
+        .filter(Boolean);
       console.log("GPT Suggested Movies:", gptMoviesList);
 
       const tmdbResults = await Promise.all(
         gptMoviesList.map((movie) => searchMovieTMDB(movie))
       );
+
       dispatch(
         addGptMovieResult({
           gptMovieNames: gptMoviesList,
